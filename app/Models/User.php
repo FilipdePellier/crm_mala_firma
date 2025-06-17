@@ -13,33 +13,53 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Nazwa tabeli powiązana z modelem.
+     */
+    protected $table = 'Uzytkownicy';
+
+    /**
+     * Klucz główny tabeli.
+     */
+    protected $primaryKey = 'id_uzytkownika';
+
+    /**
+     * Nazwy kolumn przechowujących daty utworzenia/aktualizacji.
+     */
+    const CREATED_AT = 'utworzono_at';
+    const UPDATED_AT = 'zaktualizowano_at';
+
+    /**
+     * Atrybuty, które można masowo przypisywać.
      */
     protected $fillable = [
-        'name',
+        'nazwa_uzytkownika',
+        'imie',
+        'nazwisko',
         'email',
-        'password',
+        'haslo',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Atrybuty, które powinny być ukryte podczas serializacji.
      */
     protected $hidden = [
-        'password',
+        'haslo',
         'remember_token',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * Atrybuty, które powinny być rzutowane na inne typy.
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'haslo' => 'hashed', 
     ];
+    
+    /**
+     * Nadpisanie metody, aby Laravel wiedział, w której kolumnie jest hasło.
+     */
+    public function getAuthPassword()
+    {
+        return $this->haslo;
+    }
 }
