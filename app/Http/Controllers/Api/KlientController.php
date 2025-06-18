@@ -39,7 +39,6 @@ class KlientController extends Controller
 
         public function update(Request $request, string $id)
     {
-        // Najpierw ręcznie znajdujemy klienta
         $klient = Klient::findOrFail($id);
 
         $validatedData = $request->validate([
@@ -56,9 +55,12 @@ class KlientController extends Controller
     }
 
 
-    public function destroy(Klient $klient)
+
+    public function destroy(string $id)
     {
+        $klient = Klient::findOrFail($id);
         $klient->delete();
         return response()->json(null, 204);
     }
+
 }
