@@ -3,8 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Importujemy kontrolery, których będziemy używać
 use App\Http\Controllers\Api\KlientController;
+use App\Http\Controllers\Api\KontaktController;
+use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\NotatkaController;
+use App\Http\Controllers\Api\SzanseSprzedazyController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Session\Middleware\StartSession; 
@@ -39,7 +42,10 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    // Endpointy do zarządzania zasobem "Klienci"
     Route::apiResource('klienci', KlientController::class);
+    Route::apiResource('kontakty', KontaktController::class);
+    Route::apiResource('leady', LeadController::class);
+    Route::apiResource('szanse-sprzedazy', SzanseSprzedazyController::class);
+    Route::apiResource('notatki', NotatkaController::class);
     
 });
